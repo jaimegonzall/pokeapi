@@ -24,7 +24,6 @@ async function getPokemonItem () {
   await store.dispatch('getPokemonSearchById', {
     id: 133
   })
-  firstLoad.value = false
 }
 
 </script>

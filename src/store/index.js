@@ -31,6 +31,9 @@ export default createStore({
     },
     getPokemonItem (state) {
       return state.pokemonItem
+    },
+    getPokemonItemLoading (state) {
+      return state.pokemonItemLoading
     }
   },
   actions: {
