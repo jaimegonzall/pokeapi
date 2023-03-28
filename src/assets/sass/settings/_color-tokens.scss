@@ -65,6 +65,57 @@ $hr-border-color: $grey-20;
 
 /* text colors */
 $content-color-01: $grey-90; /* primary text, body, hover text color for text-02 */
-$content-color-02: $grey-65;  /* secondary text, input labels */
+$content-color-02: $grey-65; /* secondary text, input labels */
 $content-color-03: $grey-50; /* placeholder text */
 $content-color-04: $grey-35; /* tertiary text, subdued, help text, disabled text */
+
+$type-normal: #A8A878;
+$type-fighting: #C03028;
+$type-flying: #A890F0;
+$type-poison: #A040A0;
+$type-ground: #E0C068;
+$type-rock: #B8A038;
+$type-bug: #A8B820;
+$type-ghost: #705898;
+$type-steel: #B8B8D0;
+$type-fire: #F08030;
+$type-water: #6890F0;
+$type-grass: #78C850;
+$type-electric: #F8D030;
+$type-psychic: #F85888;
+$type-ice: #98D8D8;
+$type-dragon: #7038F8;
+$type-dark: #705848;
+$type-fairy: #EE99AC;
+$type-unknown: #68A090;
+$type-shadow: #41394D;
+
+$pokemon_type_colors: (
+  normal: #A8A878,
+  fighting: #C03028,
+  flying: #A890F0,
+  poison: #A040A0,
+  ground: #E0C068,
+  rock: #B8A038,
+  bug: #A8B820,
+  ghost: #705898,
+  steel: #B8B8D0,
+  fire: #F08030,
+  water: #6890F0,
+  grass: #78C850,
+  electric: #F8D030,
+  psychic: #F85888,
+  ice: #98D8D8,
+  dragon: #7038F8,
+  dark: #705848,
+  fairy: #EE99AC,
+  unknown: #68A090,
+  shadow: #41394D
+);
+
+@each $key, $value in $pokemon_type_colors {
+  .type-#{$key} {
+      background-color: $value;
+      color: darken($value, 50%);
+  }
+}
