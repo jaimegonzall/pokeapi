@@ -1,0 +1,87 @@
+/*
+  ESTILOS PARA ELEMENTOS HTML (H1, H2, P, UL...)
+  NO DAR CLASES A SPAN O DIV
+*/
+
+html {
+  background-color: $body-bg;
+}
+
+body {
+  // min-width: 1366px;
+  font-family: $typo-1;
+  font-size: $font-size-root;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
+  font-style: normal;
+  color: $content-color-01;
+  background-color: $body-bg;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin-bottom: inherit;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: inherit;
+  color: $content-color-01;
+}
+
+/* https: ; //type-scale.com/ */
+h1 {
+    font-family: $typo-1;
+    font-size: $font-size-h1;
+    line-height: initial;
+}
+h2 {
+    font-family: $typo-2;
+    font-size: $font-size-h2;
+    line-height: initial;
+}
+h3 {
+    font-family: $typo-2;
+    font-size: $font-size-h3;
+    line-height: initial;
+}
+h4 {
+    font-family: $typo-2;
+    font-size: $font-size-h4;
+    line-height: initial;
+}
+h5 {
+    font-family: $typo-2;
+    font-size: $font-size-h5;
+    line-height: initial;
+}
+h6 {
+    font-family: $typo-2;
+    font-size: $font-size-h6;
+    line-height: initial;
+}
+
+p {
+  font-family: $typo-1;
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+  line-height: $line-height-base;
+  color: $content-color-01;
+  margin: 0px 0px 20px 0px;
+}
+
+a {
+  color: $link-color;
+  &:hover {
+    color: $link-hover;
+  }
+  &:focus {
+    color: $link-focus;
+  }
+}
+
+hr {
+  border-color: $hr-border-color;
+  border-width: 1px;
+}

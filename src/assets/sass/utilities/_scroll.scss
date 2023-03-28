@@ -1,0 +1,88 @@
+/* STANDARD X SCROLL */
+
+.u-custom-x-scroll {
+  scroll-snap-type: x mandatory; /* x | y | both + none | mandatory | proximity  */
+  scroll-padding: 10px; /* <length> | <percentage> */
+  scroll-snap-stop: always; /* normal | always; */
+  /* obliga a deterner el scroll en el siguiente elemento sin dejarse influir por la fuerza del scroll de la rueda de mouse */
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 10px;
+  gap: 10px;
+  &:hover {
+    overflow-x: scroll;
+    overflow-x: overlay;
+  }
+}
+
+/* ESTUDIAR ESTE ARTÍCULO */
+/* https://ferie.medium.com/detect-a-touch-device-with-only-css-9f8e30fa1134 */
+@media (pointer: coarse) {
+  .u-custom-x-scroll {
+    overflow-x: scroll;
+    overflow-x: overlay;
+  }
+}
+
+.u-custom-y-scroll {
+  scroll-snap-type: x mandatory; /* x | y | both + none | mandatory | proximity  */
+  scroll-padding: 10px; /* <length> | <percentage> */
+  scroll-snap-stop: always; /* normal | always; */
+  /* obliga a deterner el scroll en el siguiente elemento sin dejarse influir por la fuerza del scroll de la rueda de mouse */
+  scroll-behavior: smooth;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 10px;
+  gap: 10px;
+  &:hover {
+    overflow-y: scroll; /* Firefox */
+    overflow-y: overlay; /* Chrome */
+  }
+}
+
+/* ESTUDIAR ESTE ARTÍCULO */
+/* https://ferie.medium.com/detect-a-touch-device-with-only-css-9f8e30fa1134 */
+@media (pointer: coarse) {
+  .custom-y-scroll {
+    overflow-y: scroll; /* Firefox */
+    overflow-y: overlay; /* Chrome */
+  }
+}
+
+.u-scroll-thin {
+  scrollbar-width: thin;
+  scrollbar-face-color: red;
+  scrollbar-track-color: yellow;
+  scrollbar-color: var(--black-7) transparent;
+  &::-webkit-scrollbar {
+    width: 0.6rem;
+    height: 0.6em;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--black-7);
+    border-radius: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--black-6);
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background-color: var(--black-7);
+    border-radius: 0.3rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-corner {
+      background: transparent;
+  }
+}
