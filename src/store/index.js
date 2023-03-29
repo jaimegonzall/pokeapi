@@ -56,9 +56,6 @@ export default createStore({
         .then(data => {
           console.info('STORE DATA', data)
           commit('setPokemonList', data)
-          // for (let n of this.getters.getPokemonList.results) {
-          //   console.log(n);
-          // }
         })
         .catch((error) => {
           console.log('ERROR catch', error)

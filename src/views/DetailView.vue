@@ -120,7 +120,10 @@ const gettingPokemonLoading = computed(() => {
 .pokemon-type-list {
   list-style: none;
   display: flex;
+  justify-content: flex-end;
   gap: 8px;
+  margin: 0;
+  padding: 0;
   &__item {
     display: inline-block;
     padding: 0px 8px;
