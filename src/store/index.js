@@ -13,6 +13,9 @@ export default createStore({
     pokemonList: [],
     pokemonListLoading: false,
     pokemonListError: false,
+    pokemonFullDataList: [],
+    pokemonFullDataListLoading: false,
+    pokemonFullDataListError: false,
     pokemonItem: {},
     pokemonItemLoading: false,
     pokemonItemError: false
@@ -23,11 +26,18 @@ export default createStore({
     },
     setPokemonItem (state, item) {
       state.pokemonItem = item
+    },
+    setPokemonItemList (state, item) {
+      state.pokemonFullDataList.push(item)
+      console.log(state.pokemonFullDataList);
     }
   },
   getters: {
     getPokemonList (state) {
       return state.pokemonList
+    },
+    getPokemonFullDataList (state) {
+      return state.pokemonFullDataList
     },
     getPokemonItem (state) {
       return state.pokemonItem
@@ -46,6 +56,9 @@ export default createStore({
         .then(data => {
           console.info('STORE DATA', data)
           commit('setPokemonList', data)
+          // for (let n of this.getters.getPokemonList.results) {
+          //   console.log(n);
+          // }
         })
         .catch((error) => {
           console.log('ERROR catch', error)
@@ -53,8 +66,24 @@ export default createStore({
         })
       this.state.pokemonListLoading = false
     },
+    async getPokemonFullDataList ({commit}, params) {
+      console.log('STORE getPokemonSearchById', params)
+      this.state.pokemonItemLoading = true
+      this.state.pokemonItemError = false
+      await api.getPokemonFindById({ params })
+        .then(res => res.json())
+        .then(data => {
+          console.info('STORE ITEM', data.id)
+          commit('setPokemonItemList', data)
+        })
+        .catch((error) => {
+          console.log('ERROR catch', error)
+          this.state.pokemonItemError = true
+        })
+      this.state.pokemonItemLoading = false
+    },
     async getPokemonSearchById ({commit}, params) {
-      // console.log('STORE getPokemonSearchById', params)
+      console.log('STORE getPokemonSearchById', params)
       this.state.pokemonItemLoading = true
       this.state.pokemonItemError = false
       await api.getPokemonFindById({ params })

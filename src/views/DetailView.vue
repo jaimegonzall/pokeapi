@@ -30,7 +30,7 @@ const gettingPokemonLoading = computed(() => {
 </script>
 
 <template>
-<main>
+<div>
   <div
     v-if="gettingPokemonLoading"
     class="detail-view"
@@ -78,7 +78,7 @@ const gettingPokemonLoading = computed(() => {
     </div>
     <!-- <pre>{{gettingPokemon}}</pre> -->
   </div>
-</main>
+  </div>
 </template>
 
 <style scoped lang="scss">

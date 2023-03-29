@@ -74,13 +74,20 @@ body {
   font-weight: normal;
   display: flex;
   flex-direction: column;
-}
-
-main {
-  flex-basis: 1px;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
+  & .app-container {
+    padding-left: calc(var(--section-gap) / 2);
+    padding-right: calc(var(--section-gap) / 2);
+    &__header {
+      display: flex;
+      place-items: center;
+    }
+    &__main {
+      flex-basis: 1px;
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
 a,

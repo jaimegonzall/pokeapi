@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <header>
+  <header class="app-container app-container__header">
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <div class="wrapper">
       <nav>
@@ -11,18 +11,12 @@ import { RouterLink, RouterView } from 'vue-router'
       </nav>
     </div>
   </header>
-
-  <RouterView />
+  <main class="app-container app-container__main">
+    <RouterView />
+  </main>
 </template>
 
 <style scoped lang="scss">
-header {
-  // line-height: 1.5;
-  // max-height: 100vh;
-  display: flex;
-  place-items: center;
-  padding-right: calc(var(--section-gap) / 2);
-}
 
 nav {
   width: 100%;
