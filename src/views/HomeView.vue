@@ -8,10 +8,10 @@ import { CONSTANTS } from '@/plugins/constants.js'
 
 const POKEMON_TYPES = CONSTANTS.TYPE
 
-import CustomButton from '../components/CustomButton.vue';
-import MultiSelect from '../components/MultiSelect.vue';
-import DocumentFill from '../components/icons/DocumentFill.vue'
-import IconClip from '../components/icons/IconClip.vue'
+import CustomButton from '@/components/CustomButton.vue';
+import MultiSelect from '@/components/MultiSelect.vue';
+import DocumentFill from '@/components/icons/DocumentFill.vue'
+import IconClip from '@/components/icons/IconClip.vue'
 
 const router = useRouter()
 
@@ -24,7 +24,7 @@ onMounted(async () => {
 async function getPokemonList () {
   await store.dispatch('getPokemonPaginatedList', {
     limit: 20,
-    offset: 20,
+    offset: 20
   })
   getBucleItemsDetail()
 }
@@ -42,7 +42,6 @@ async function getPokemonItem (value) {
 }
 
 function idNameSearch () {
-  console.log('idNameSearch:', searchValue.value);
   if (searchValue.value) {
     router.push(
       `/pokemon/${searchValue.value}`
@@ -50,13 +49,21 @@ function idNameSearch () {
   }
 }
 
-function typeSearch () {
-  // TODO SEGUIR POR AQUÍ CON LA BÚSQUEDA POR TIPO
-  console.log('typeSearch:', filterOptions.value.types);
+async function typeSearch () {
+  await store.dispatch('getPokemonListByType', {
+    type: filterOptions.value.types
+  })
+  let x = 0
+  const MAX_ITERATIONS = 10
+  for (let n of store.getters.getPokemonList) {
+    x++
+    if(x < MAX_ITERATIONS) {
+      getPokemonItem(n.pokemon.name)
+    }
+  }
 }
 
 function viewItemDetail (value) {
-  console.log('selectRow:', value);
   router.push(
     `/pokemon/${value}`
   )
@@ -73,14 +80,13 @@ const filterOptions = ref(
 )
 
 function updateInput (event, fieldName) {
-  console.log('PARENT: (', fieldName, ')', event)
+  // console.log('PARENT: (', fieldName, ')', event)
   filterOptions.value[fieldName] = event
 }
 </script>
 
 <template>
   <div class="main-view">
-    <!-- <button @click="getBucle">Bucle</button> -->
     <div class="filter-area">
       <input
         v-model="searchValue"
