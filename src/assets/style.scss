@@ -3,9 +3,13 @@
 
 @import 'sass/elements/elements';
 
+@import 'sass/components/popper';
 @import 'sass/components/spinner';
 
+@import 'sass/utilities/cursor';
+@import 'sass/utilities/measures';
 @import 'sass/utilities/scroll';
+@import 'sass/utilities/text';
 
 
 :root {

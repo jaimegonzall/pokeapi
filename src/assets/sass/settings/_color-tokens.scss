@@ -46,6 +46,15 @@ $support-soft-04: #C8EDF1;
 $color-true: #1B6938;
 $color-false: #865486;
 
+$color-primary-light-05: lighten($color-primary, 5%);
+$color-primary-light-20: lighten($color-primary, 20%);
+$color-primary-light-50: lighten($color-primary, 50%);
+$color-primary-light-80: lighten($color-primary, 80%);
+$color-primary-dark-05: darken($color-primary, 5%);
+$color-primary-dark-20: darken($color-primary, 20%);
+$color-primary-dark-50: darken($color-primary, 50%);
+$color-primary-dark-80: darken($color-primary, 80%);
+
 $color-link: #458FFF;
 $color-link-light-20: lighten($color-link, 20%);
 $color-link-light-50: lighten($color-link, 50%);

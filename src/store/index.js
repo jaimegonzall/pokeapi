@@ -21,6 +21,9 @@ export default createStore({
     pokemonItemError: false
   },
   mutations: {
+    resetPokemonList (state) {
+      state.pokemonList = []
+    },
     setPokemonList (state, pokemons) {
       state.pokemonList = pokemons
     },
@@ -29,7 +32,9 @@ export default createStore({
     },
     setPokemonItemList (state, item) {
       state.pokemonFullDataList.push(item)
-      console.log(state.pokemonFullDataList);
+    },
+    resetPokemonItemList (state) {
+      state.pokemonFullDataList = []
     }
   },
   getters: {
@@ -44,36 +49,44 @@ export default createStore({
     },
     getPokemonItemLoading (state) {
       return state.pokemonItemLoading
+    },
+    getPokemonItemError (state) {
+      return state.pokemonItemError
     }
   },
   actions: {
     async getPokemonPaginatedList ({commit}, params = this.state.pokemonsPageOptions) {
-      // console.log('STORE getPokemonPaginatedList', params)
       this.state.pokemonListLoading = true
       this.state.pokemonListError = false
       await api.getPokemonList({ params })
+      .then(res => res.json())
+      .then(data => {
+        commit('setPokemonList', data)
+      })
+      .catch((error) => {
+        console.log('ERROR catch', error)
+          this.state.pokemonListError = true
+      })
+      this.state.pokemonListLoading = false
+    },
+    async getPokemonListByType ({commit}, params) {
+      commit('resetPokemonList')
+      commit('resetPokemonItemList')
+      await api.getPokemonListByType({ params })
         .then(res => res.json())
         .then(data => {
-          console.info('STORE DATA', data)
-          commit('setPokemonList', data)
-          // for (let n of this.getters.getPokemonList.results) {
-          //   console.log(n);
-          // }
+          commit('setPokemonList', data.pokemon)
         })
         .catch((error) => {
           console.log('ERROR catch', error)
-          this.state.pokemonListError = true
         })
-      this.state.pokemonListLoading = false
     },
     async getPokemonFullDataList ({commit}, params) {
-      console.log('STORE getPokemonSearchById', params)
       this.state.pokemonItemLoading = true
       this.state.pokemonItemError = false
       await api.getPokemonFindById({ params })
         .then(res => res.json())
         .then(data => {
-          console.info('STORE ITEM', data.id)
           commit('setPokemonItemList', data)
         })
         .catch((error) => {
@@ -83,13 +96,12 @@ export default createStore({
       this.state.pokemonItemLoading = false
     },
     async getPokemonSearchById ({commit}, params) {
-      console.log('STORE getPokemonSearchById', params)
       this.state.pokemonItemLoading = true
       this.state.pokemonItemError = false
       await api.getPokemonFindById({ params })
         .then(res => res.json())
         .then(data => {
-          console.info('STORE ITEM', data)
+          // console.info('STORE ITEM', data)
           commit('setPokemonItem', data)
         })
         .catch((error) => {

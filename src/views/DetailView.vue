@@ -1,17 +1,27 @@
 <script setup>
-import { onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted, onUpdated, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import store from '@/store/index.js'
 
 import { capitalize } from '@/utils/format'
 
 import SpinnerCircle from '../components/SpinnerCircle.vue'
 
+const router = useRouter()
 const route = useRoute()
 
 onMounted(async () => {
   getPokemonItem(route.params.idOrName)
-  console.log(route);
+  if(gettingPokemonError.value === true) {
+    console.log('ERROR');
+    router.push('/')
+  }
+})
+onUpdated(async () => {
+  if(gettingPokemonError.value === true) {
+    console.log('ERROR');
+    router.push('/')
+  }
 })
 
 async function getPokemonItem (value) {
@@ -25,6 +35,9 @@ const gettingPokemon = computed(() => {
 })
 const gettingPokemonLoading = computed(() => {
   return store.getters.getPokemonItemLoading
+})
+const gettingPokemonError = computed(() => {
+  return store.getters.getPokemonItemError
 })
 
 </script>
@@ -42,6 +55,7 @@ const gettingPokemonLoading = computed(() => {
     class="detail-view"
   >
     <div class="detail-view__data">
+      {{gettingPokemonError}}
       <div class="detail-view__data-header">
         <h2>
           <span class="detail-view__data-header__id">#{{ gettingPokemon.id }}</span> {{ capitalize(`${gettingPokemon.name}`) }}
@@ -120,7 +134,10 @@ const gettingPokemonLoading = computed(() => {
 .pokemon-type-list {
   list-style: none;
   display: flex;
+  justify-content: flex-end;
   gap: 8px;
+  margin: 0;
+  padding: 0;
   &__item {
     display: inline-block;
     padding: 0px 8px;
