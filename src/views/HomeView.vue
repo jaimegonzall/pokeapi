@@ -4,8 +4,14 @@ import store from '@/store/index.js'
 import { useRouter } from 'vue-router'
 import { capitalize } from '@/utils/format'
 
+import { CONSTANTS } from '@/plugins/constants.js'
+
+const POKEMON_TYPES = CONSTANTS.TYPE
+
 import CustomButton from '../components/CustomButton.vue';
+import MultiSelect from '../components/MultiSelect.vue';
 import DocumentFill from '../components/icons/DocumentFill.vue'
+import IconClip from '../components/icons/IconClip.vue'
 
 const router = useRouter()
 
@@ -44,6 +50,11 @@ function idNameSearch () {
   }
 }
 
+function typeSearch () {
+  // TODO SEGUIR POR AQUÍ CON LA BÚSQUEDA POR TIPO
+  console.log('typeSearch:', filterOptions.value.types);
+}
+
 function viewItemDetail (value) {
   console.log('selectRow:', value);
   router.push(
@@ -54,24 +65,51 @@ function viewItemDetail (value) {
 const gettingPokemonList = computed(() => {
   return store.getters.getPokemonFullDataList
 })
+
+const filterOptions = ref(
+  {
+    type: null
+  }
+)
+
+function updateInput (event, fieldName) {
+  console.log('PARENT: (', fieldName, ')', event)
+  filterOptions.value[fieldName] = event
+}
 </script>
 
 <template>
   <div class="main-view">
     <!-- <button @click="getBucle">Bucle</button> -->
-    <input
-      v-model="searchValue"
-      type="search"
-      placeholder="Busca por id o nombre"
-    >
-    <CustomButton
-      label-text="Buscar"
-      @click="idNameSearch"
-    />
+    <div class="filter-area">
+      <input
+        v-model="searchValue"
+        type="search"
+        placeholder="Busca por id o nombre"
+        @keyup.enter="idNameSearch"
+      >
+      <CustomButton
+        label-text="Buscar"
+        @click="idNameSearch"
+      />
+      <MultiSelect
+        :label-text="'Busca por tipo'"
+        id-for-anchor="types"
+        :searchable="false"
+        :multiselect="false"
+        :options="POKEMON_TYPES"
+        @item-selection="updateInput"
+      />
+      <CustomButton
+        label-text="Buscar por tipo"
+        @click="typeSearch"
+      />
+    </div>
     <table class="custom-table">
       <thead class="custom-table__header">
         <tr class="custom-table__header-row">
-          <th class="custom-table__header-cell u-width-25"></th>
+          <th class="custom-table__header-cell u-width-20"></th>
+          <th class="custom-table__header-cell u-width-20"></th>
           <th class="custom-table__header-cell header-cell--sortable">#</th>
           <th class="custom-table__header-cell">name</th>
           <th class="custom-table__header-cell u-text-right">type</th>
@@ -86,6 +124,24 @@ const gettingPokemonList = computed(() => {
             <DocumentFill
               @click="viewItemDetail(item.id)"
             />
+          </td>
+          <td class="u-cursor-pointer">
+            <Popper
+              hover
+              arrow
+              open-delay="100"
+              close-delay="0"
+              :class="'popper-light'"
+            >
+              <IconClip/>
+              <template #content>
+                <img
+                  :src="item.sprites?.other.home.front_default"
+                  :alt="item.name"
+                  width="150"
+                >
+              </template>
+            </Popper>
           </td>
           <td>{{ item.id }}</td>
           <td>{{ capitalize(item.name) }}</td>
@@ -157,10 +213,6 @@ const gettingPokemonList = computed(() => {
     background-color: $color-primary;
     white-space: nowrap;
     cursor: default;
-    // border-bottom-width: 0;
-    // border-top-width: 0;
-    // border-right: 0px solid $color-primary;
-    // border-left: 0px solid $color-primary;
     &:hover {
       background-color: $color-primary-light-05;
     }
@@ -180,21 +232,13 @@ const gettingPokemonList = computed(() => {
       font-weight: $font-weight-base;
     }
   }
-  // & tbody {
-  //   tr {
-  //     &:hover {
-  //       background-color: rgba(255, 178, 0, 0.1);
-  //     }
-  //   }
-  // }
-  & .table-spinner-container {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    background: #ffffffba;
-    pointer-events: none;
-  }
+}
+
+.filter-area {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 </style>
